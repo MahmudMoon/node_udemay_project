@@ -1,6 +1,5 @@
 const fs = require('fs');
 const logHelper = require('./LoggerHelper');
-const { time } = require('console');
 
 function loadNotes(){
     try{
@@ -9,6 +8,10 @@ function loadNotes(){
     }catch(err){
         throw err;
     }
+}
+
+function saveNotes(notes){
+    fs.writeFileSync('./data/test_doc.json', JSON.stringify(notes));
 }
 
 module.exports = {
@@ -66,22 +69,10 @@ module.exports = {
     delete: async (title) => {
         if (fs.existsSync('./data/test_doc.json')) {
             let jsonAry = loadNotes();
-            let jsobObj = jsonAry.find(element => { if (element.title == title) return element });
-            console.log(jsobObj);
-            if (jsobObj) {
-                let index = jsonAry.indexOf(jsobObj);
-                if (index >= 0) {
-                    console.log(index);
-                    jsonAry.splice(index, 1);
-                    console.log(jsonAry);
-                    jsonData = JSON.stringify(jsonAry);
-                    return await fs.writeFileSync('./data/test_doc.json', jsonData);
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
+            let filteredAry = jsonAry.filter((element)=>{
+                return element.title != title
+            })
+            return await saveNotes(filteredAry);
         }
     }
 }
