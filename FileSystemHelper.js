@@ -72,6 +72,11 @@ module.exports = {
             let filteredAry = jsonAry.filter((element)=>{
                 return element.title != title
             })
+            if(filteredAry.length != jsonAry.length){
+                logHelper.info('deleted');
+            }else{
+                logHelper.error('Not deleted');
+            }
             return await saveNotes(filteredAry);
         }
     }
