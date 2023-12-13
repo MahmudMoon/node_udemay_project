@@ -1,8 +1,9 @@
 const fs = require('fs');
 const logHelper = require('./LoggerHelper');
 
-function loadNotes(){
+const loadNotes = () => {
     try{
+        debugger;
         let data = fs.readFileSync('./data/test_doc.json', 'utf-8')
         return JSON.parse(data);
     }catch(err){
@@ -10,7 +11,7 @@ function loadNotes(){
     }
 }
 
-function saveNotes(notes){
+const saveNotes = (notes) => {
     fs.writeFileSync('./data/test_doc.json', JSON.stringify(notes));
 }
 
@@ -27,6 +28,7 @@ module.exports = {
                     tmpAry = JSON.parse(data);
                     if(tmpAry.find(element=>element.title == json.title)){
                         tmpAry.forEach(element => {
+                            debugger;
                             if(element.title == json.title){
                                 element.body = json.body;
                             }
@@ -34,6 +36,7 @@ module.exports = {
                     }else{
                         tmpAry.push(json);
                     }
+                    debugger;
                     fs.writeFile('./data/test_doc.json', JSON.stringify(tmpAry), (err) => {
                         if (err) throw err;
                         logHelper.info('Appended');

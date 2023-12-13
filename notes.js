@@ -3,6 +3,7 @@ const filesystemHelper = require('./FileSystemHelper');
 
 module.exports = {
     getNotes: ()=>{
+        debugger;
         logHelper.info('getting notes');
         filesystemHelper.list()
         .then(res=>{
@@ -31,6 +32,7 @@ module.exports = {
 
 
     addNote: (title, body) => {
+        debugger;
         logHelper.info('adding note '+ title+ " ," + body);
         filesystemHelper.write({title: title, body: body});
     }
